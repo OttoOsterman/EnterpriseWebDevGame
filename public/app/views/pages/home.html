@@ -1,0 +1,14 @@
+<div class="jumbotron text-center">
+  <h1>Welcome to Gladiators!</h1>
+
+  <div ng-if="!main.loggedIn">
+    <p>Let's get started!</p>
+      <a href="/register" class="btn btn-primary">Register</a>
+    <a href="/login" class="btn btn-primary">Login</a>
+  </div>
+
+  <div ng-if="main.loggedIn"">
+    <p>Create a gladiator by clicking the button below.</p>
+    <a href="gladiators/create/{{uname}}" class="btn btn-primary">Create</a>
+  </div>
+</div>

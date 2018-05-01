@@ -1,0 +1,59 @@
+﻿<div class="page-header">
+    <h3 class="page-header">Battle with other Gladiators!</h3>
+</div>
+<body>
+    <div id="battlecontainer">
+        <!-- Display all users in cards -->
+        <div id="usercard">
+            <div class="card-deck"  ng-controller="userController as user" ng-show="user.users">
+                <div class="card border-primary mb-3">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" id="userbattle" ng-repeat="user in user.users | filter: username = '!' + uname">
+                            <div class="card-body">
+                                <h5 class="card-header">{{ user.name }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Username:</h6>
+                                <p class="card-text">{{ user.username }}</p>
+                                <h6 class="card-subtitle mb-2 text-muted">Creation date:</h6>
+                                <p class="card-text">{{ user.created_at | date: 'yyyy-dd-MM' }}</p>
+                                <h6 class="card-subtitle mb-2 text-muted">Type:</h6>
+                                <p class="card-text">{{ user.type }}</p>
+                                <h6 class="card-subtitle mb-2 text-muted">Experience:</h6>
+                                <p class="card-text">{{ user.exp }}</p>
+                                <h6 class="card-subtitle mb-2 text-muted">Battles won:</h6>
+                                <p class="card-text">{{ user.wins }}</p>
+                                <h6 class="card-subtitle mb-2 text-muted">Health:</h6>
+                                <p class="card-text">{{ user.health }}</p>
+                                <h6 class="card-subtitle mb-2 text-muted">Damage:</h6>
+                                <p class="card-text">{{ user.damage }}</p>
+                                <!-- Button for initializing battle with selected user -->
+                                <a ng-href="/battleroom/oneonone/{{user.username}}/{{uname}}/{{user._id}}" ng-click="initBattle()" cl class="btn btn-danger">Battle</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard -->
+        <div class="card border-primary mb-3" id="leaderboard">
+            <h4 id="page-header">Leaderboard:</h4>
+            <table class="table table-bordered table-striped" ng-show="user.users">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Wins</th>
+                        <th>Losses</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Order users by number of wins -->
+                    <tr ng-repeat="user in user.users | orderBy: '-wins'">
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.wins }}</td>
+                        <td>{{ user.losses }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>

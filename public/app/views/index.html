@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gladiators</title>
+    <!-- FOR ANGULAR ROUTING -->
+    <base href="/">
+    <!-- CSS  -->
+    <!-- load bootstrap from CDN and custom CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.1/paper/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- JS -->
+    <!-- load angular and angular-route via CDN -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <!-- controllers -->
+    <script src="app/controllers/mainCtrl.js"></script>
+    <script src="app/controllers/userCtrl.js"></script>
+    <script src="app/controllers/weaponCtrl.js"></script>
+    <!-- services -->
+    <script src="app/services/authService.js"></script>
+    <script src="app/services/userService.js"></script>
+    <script src="app/services/weaponService.js"></script>
+    <!-- main Angular app files -->
+    <script src="app/app.routes.js"></script>
+    <script src="app/app.js"></script>
+
+    <!-- scripts for the chat -->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- jQuery script for the Gladiator chat -->
+    <script>
+        jQuery(function ($) {
+            var socket = io.connect();
+            var $messageForm = $('#send-message');
+            var $messageBox = $('#message');
+            var $chat = $('#chat');
+            var $nickForm = $('#setNick');
+            var $nickError = $('#nickError');
+            var $nickBox = $('#nickname');
+            var $users = $('#users');
+
+            // Function to deal with new user
+            $nickForm.submit(function (e) {
+                e.preventDefault();
+                socket.emit('new user', $nickBox.val(), function (data) {
+                    if (data) {
+                        $('#nickWrap').hide();
+                        $('#contentWrap').show();
+                    } else {
+                        $nickError.html('A Gladiator with that name already exists in Rome');
+                    }
+                });
+                $nickBox.val('');
+            });
+
+            $messageForm.submit(function (e) {
+                e.preventDefault();
+                socket.emit('send message', $messageBox.val());
+                $messageBox.val('');
+            });
+
+            // Function to send a message
+            socket.on('new message', function (data) {
+                $chat.append("<strong>" + data.nick + "</strong>: " + data.msg + "<br/>");
+            });
+
+            // Function to display online chat users
+            socket.on('usernames', function (data) {
+                var html = '';
+                for (i = 0; i < data.length; i++) {
+                    html += data[i] + '<br/>';
+                    $users.html(html);
+                }
+            });
+
+        });
+    </script>
+</head>
+
+<body ng-app="userApp" ng-controller="mainController as main">
+    <div class="wrapper">
+        <div class="row">
+            
+            <div class="col-sm-12">
+                <div ng-app="userApp" ng-controller="mainController as main" class="col-sm-1">
+                    <!-- NAVBAR 
+                        Only show if user logged in-->
+                    <div class="navbar navbar-inverse navbar-fixed-left" ng-if="main.loggedIn">
+                        <a class="navbar-brand" href="#">Gladiators</a>
+                        <ul class="nav navbar-nav">
+                            <li ng-if="main.loggedIn" class="navbar-text">Hello {{ main.user.username }}!</li>
+                            <li><a href="/myaccount/{{uname}}"><span class="glyphicon glyphicon-user"></span> My Gladiator</a></li>
+                            <li><a href="/battleroom/battle/{{uname}}"><span class="glyphicon glyphicon-flash"></span> Battle</a></li>
+                            <li><a href="/market/{{ userid }}"><span class="glyphicon glyphicon-envelope"></span> Market</a></li>
+                        </ul>
+
+                        <ul class="nav navbar-nav">
+                            <li ng-if="!main.loggedIn"><a href="/login">Login</a></li>
+                            <li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()"><span class="glyphicon glyphicon-remove"></span> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div ng-view ng-if="!main.loggedIn"></div>
+                <div class="col-sm-9" id="background" ng-if="main.loggedIn">
+                    <!-- ANGULAR VIEWS -->
+                    <div ng-view></div>
+                </div>
+
+                <!-- Gladiator chat -->
+                <div id="colsm2" class="col-sm-2" ng-if="main.loggedIn">
+                    <h4 id="chat-title">Gladiator chat</h4>
+
+                    <div id=nickWrap>
+                        <p id="greeting">Greetings Gladiator! What is your name?</p>
+                        <p id="nickError"></p>
+
+                        <form id="setNick">
+                            <input type="text" id="nickname">
+                            <input type="submit">
+                        </form>
+                    </div>
+
+                    <div id="contentWrap">
+                        <div id="chatWrap">
+                            <div id="chat"></div>
+                            <form id="send-message">
+                                <input type="text" id="message">
+                                <input type="submit">
+                            </form>
+                        </div>
+                        
+                    </div>
+                    <!-- Show list of users -->
+                    <div id="users"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

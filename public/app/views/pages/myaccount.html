@@ -1,0 +1,48 @@
+﻿<div class="page-header">
+    <h3 class="page-header">My Gladiator</h3>
+</div>
+
+<body>
+
+    <div class="jumbotron text-center" ng-controller="userController as user">
+        <p>Hello {{ uname }}!</p>
+        <p>Below is information about your Gladiator.</p>
+    </div>
+
+    <!-- Display only logged in user information using filter -->
+    <div class="card-deck" ng-controller="userController as user" ng-show="user.users">
+        <div class="card border-primary mb-3" id="myacc">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" ng-repeat="user in user.users | filter : user.userData.by = uname">
+                    <div class="card-body">
+                        <h5 class="card-header">{{ uname }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Name:</h6>
+                        <p class="card-text">{{ user.name }}</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Username:</h6>
+                        <p class="card-text">{{ user.username }}</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Creation date:</h6>
+                        <p class="card-text">{{ user.created_at | date: 'yyyy-dd-MM' }}</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Type:</h6>
+                        <p class="card-text">{{ user.type }}</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Coins:</h6>
+                        <p class="card-text">{{ user.coins }}</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Experience:</h6>
+                        <p class="card-text">{{ user.exp }}</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Battles won:</h6>
+                        <p class="card-text">{{ user.wins }}</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Battles lost:</h6>
+                        <p class="card-text">{{ user.losses }}</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Damage:</h6>
+                        <p class="card-text">{{ user.damage }}</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Health:</h6>
+                        <p class="card-text">{{ user.health }}</p>
+                        <a ng-href="/market/{{user._id}}" cl class="btn btn-primary">Upgrade</a>
+                        <a ng-href="/users/{{ user._id }}" cl class="btn btn-danger">Edit</a>
+                        <a href="#" ng-click="user.deleteUser(user._id)" class="btn btn-primary">Delete</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</body>

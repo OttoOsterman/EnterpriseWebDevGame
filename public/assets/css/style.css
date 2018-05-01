@@ -1,0 +1,197 @@
+html, body {
+    margin: 0;
+}
+
+.wrapper {
+    background: url("/assets/arena.png") no-repeat center center fixed;
+    background-size: cover;
+}
+
+.form-horizontal {
+    background-color: white;
+}
+
+#myacc {
+    margin: 5%;
+    text-align: center;
+}
+
+#leaderboard {
+    float: right;
+    background-color: white;
+    margin-top: 3%;
+    width: 25%;
+}
+
+.page-header {
+    padding-left: 1%;
+    color: white;
+
+}
+
+#page-header {
+    padding-left: 3%;
+}
+
+.h3 {
+    color: white !important;
+    background-color: white;
+}
+
+#picturecontainer {
+    z-index: 50;
+}
+
+#colsm2 {
+    margin: 0;
+    background-color: #2196f3;
+    height: 100vh;
+    padding: 1%;
+    min-height: 100vh;
+}
+
+.col-sm-12 {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#greeting {
+    color: #b2dbfb;
+}
+
+#users {
+    color: #b2dbfb;
+}
+
+#battlecontainer {
+    overflow: hidden;
+}
+
+#userbattle {
+    float: left;
+    width: 30%;
+    margin: 1%;
+}
+
+#weaponcard {
+    float: left;
+    width: 31%;
+    margin: 1%;
+}
+
+#weaponcontainer {
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+
+#usercard {
+    float: left;
+    width: 75%;
+}
+
+#battlecard {
+    width: 46%;
+    float: left;
+    margin: 1%;
+}
+
+.navbar-fixed-left {
+    width: 8.333333%;
+    position: fixed;
+    border-radius: 0;
+    height: 100vh;
+    float: left;
+    padding-left: 0;
+}
+
+    .navbar-fixed-left .navbar-nav > li {
+        float: none; /* Cancel default li float: left */
+    }
+
+#chat {
+    height: 80vh;
+    background-color: aliceblue;
+    margin-bottom: 10%;
+}
+
+#contentWrap {
+    display: none;
+}
+
+#chatWrap {
+    float: left;
+    height: 80vh;
+}
+
+#chat-title {
+    color: #b2dbfb;
+    padding-left: 1%;
+}
+
+#send-message {
+    float: right;
+    margin-bottom: 10px;
+}
+
+/* HEADER
+===================== */
+header .navbar {
+    border-radius: 0;
+}
+
+/* NGANIMATE
+====================== */
+
+/* show and hide */
+.show-hide-message.ng-hide-remove {
+    -webkit-animation: zoomIn 0.3s both ease;
+    -moz-animation: zoomIn 0.3s both ease;
+    animation: zoomIn 0.3s both ease;
+}
+
+/* ANIMATIONS
+====================== */
+.spinner {
+    -webkit-animation: spin 1s infinite;
+    -moz-animation: spin 1s infinite;
+    animation: spin 1s infinite;
+}
+
+/* Style for radio buttons
+====================== */
+input[type="radio"] {
+    list-style: none;
+    cursor: pointer;
+}
+
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes spin {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+
+    to {
+        -moz-transform: rotate(360deg);
+    }
+}

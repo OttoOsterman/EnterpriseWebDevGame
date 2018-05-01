@@ -1,0 +1,72 @@
+﻿<div class="page-header">
+    <h3 class="page-header">{{ uname }} vs. {{username}}!</h3>
+    <!-- Display fight rules -->
+    <p>Two-handed sword breaks through the shield</p>
+    <p>Sword and shield blocks spear</p>
+    <p>Spear has greaater reach than two-handed sword</p>
+</div>
+<div id="battlecontainer">
+
+    <div class="card-deck" id="battlecard">
+        <div class="card border-primary mb-3">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" ng-repeat="user in user.users | filter : user.userData.by = uname">
+                    <div class="card-body">
+                        <div id="picturecontainer">
+                            <img src="\assets\gladiator_1.png" alt="gladiators1" style="float:right;width:110px;height:180px;" />
+                        </div>
+                        <h5 class="card-header">{{ uname }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Name:</h6>
+                        <p class="card-text">{{ user.name }}</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Type:</h6>
+                        <p class="card-text">{{ user.type }}</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Health left:</h6>
+                        <p class="card-text">{{ fighter1.health }}</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Initial Health:</h6>
+                        <p class="card-text">100</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Damage:</h6>
+                        <p class="card-text">{{ user.damage }}</p>
+
+                        <!-- Display attack buttons -->
+                        <h6 class="card-subtitle mb-2 text-muted">Select attack:</h6>
+                        <a ng-click="fighterAttack('Two-handed sword');" ng-disabled="dead == true" cl class="btn btn-primary">Two-handed sword</a>
+                        <a ng-click="fighterAttack('Sword and shield');" ng-disabled="dead == true" cl class="btn btn-primary">Sword and Shield</a>
+                        <a ng-click="fighterAttack('Spear');" ng-disabled="dead == true" cl class="btn btn-primary">Spear</a>
+
+                        <!-- These buttons are initially hidden and will appear 
+                            depending on the outcome of the battle -->
+                        <a ng-click="battleWon(); user.saveUser();" href="/battleroom/battle/{{uname}}" ng-show="victory == true" cl class="btn btn-success">Victory!</a>
+                        <a ng-click="battleLost(); user.saveUser();" href="/battleroom/battle/{{uname}}" ng-show="loss == true" cl class="btn btn-warning">Loss!</a>
+
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Display opponent -->
+    <div class="card-deck" id="battlecard">
+        <div class="card border-primary mb-3">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" ng-repeat="user in user.users | filter : user.userData.by = username">
+                    <div class="card-body">
+                        <div id="picturecontainer">
+                            <img src="\assets\gladiator_2.png" alt="gladiators" style="float:right;width:150px;height:170px;" />
+                        </div>
+                        <h5 class="card-header">{{ username }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Name:</h6>
+                        <p class="card-text">{{ user.name }}</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Type:</h6>
+                        <p class="card-text">{{ user.type }}</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Health left:</h6>
+                        <p class="card-text">{{ fighter2.health }}</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Initial health:</h6>
+                        <p class="card-text">100</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Damage:</h6>
+                        <p class="card-text">{{ user.damage }}</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

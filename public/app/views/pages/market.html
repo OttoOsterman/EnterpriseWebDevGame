@@ -1,0 +1,28 @@
+﻿<div class="page-header">
+    <h1 class="page-header">Market</h1>
+</div>
+
+<!-- Display market items -->
+<div id="battlecontainer">
+    <div id="weaponcontainer">
+        <div class="card-deck" ng-conttroller="weaponController">
+            <div class="card border-primary mb-3">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" id="weaponcard" ng-repeat="x in weapons">
+                        <div class="card-body">
+                            <h5 class="card-header">{{ x.name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Description:</h6>
+                            <p class="card-text">{{ x.description }}</p>
+                            <h6 class="card-subtitle mb-2 text-muted">Damage:</h6>
+                            <p class="card-text">{{ x.damage }}</p>
+                            <h6 class="card-subtitle mb-2 text-muted">Price:</h6>
+                            <p class="card-text">{{ x.price }}</p>
+                            <!-- Could not get buyWeapon in weaponService to work -->
+                            <a ng-click="buyWeapon()" cl class="btn btn-primary">Purchase</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="page-header">
+    <!-- Depending on type, display different header -->
+    <h1 class="page-header" ng-if="user.type == 'create'">Create User</h1>
+    <h1 class="page-header" ng-if="user.type == 'edit'">Edit User</h1>
+    <h1 class="page-header" ng-if="user.type == 'register'">Register</h1>
+</div>
+
+<form class="form-horizontal" ng-submit="user.saveUser()">
+    <!-- Name -->
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-6">
+            <input type="text" placeholder="Your name" class="form-control" ng-model="user.userData.name">
+        </div>
+    </div>
+    <!-- Username -->
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Username</label>
+        <div class="col-sm-6">
+            <input type="text" placeholder="More than 4 characters long" class="form-control" ng-model="user.userData.username">
+        </div>
+    </div>
+    <!-- Password -->
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Password</label>
+        <div class="col-sm-6">
+            <input type="password" placeholder="A mixture of letters and numbers" class="form-control" ng-model="user.userData.password">
+        </div>
+    </div>
+    <label class="col-sm-2 control-label" id="typelabel">What kind of Gladiator are you?</label>
+    <div class="form-group">
+        
+        <!-- Select user type -->
+        <div class="btn btn-primary col-sm-2">
+            <input type="radio" name="type" class="form-control" value="swordsman" ng-model="user.userData.type"> Swordman
+        </div>
+        <div class="btn btn-primary col-sm-2">
+            <input type="radio" name="type" class="form-control" value="spearman" ng-model="user.userData.type"> Spearman
+        </div>
+        <div class="btn btn-primary col-sm-2">
+            <input type="radio" name="type" class="form-control" value="slinger" ng-model="user.userData.type"> Slinger
+        </div>
+        <div class="btn btn-primary col-sm-2">
+            <input type="radio" name="type" class="form-control" value="clubman" ng-model="user.userData.type"> Clubman
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-6">
+            <!-- Depending on type, display different button -->
+            <button type="submit" class="btn btn-success btn-lg btn-block" ng-if="user.type == 'create'">Create User</button>
+            <button type="submit" class="btn btn-success btn-lg btn-block" ng-if="user.type == 'edit'">Update User</button>
+            <button type="submit" class="btn btn-success btn-lg btn-block" ng-if="user.type == 'register'">Register</button>
+        </div>
+    </div>
+</form>
